@@ -40,24 +40,6 @@ const App = () => {
         {messages.map((msg, index) => (
           <div key={index}>
             <div className="chat">{msg.text}</div>
-            {msg.file && (
-              <div className="file-chat">
-                {msg.file.type.startsWith("image/") ? (
-                  <img
-                    src={msg.file.content}
-                    alt="Uploaded"
-                    style={{
-                      maxWidth: "20%",
-                      border: "2px solid black",
-                      margin: "10px",
-                      maxHeight: "10%",
-                    }}
-                  />
-                ) : (
-                  <div>{msg.file.content}</div>
-                )}
-              </div>
-            )}
             {loading && !apiResponses[index] && (
               <div className="loading">
                 <img

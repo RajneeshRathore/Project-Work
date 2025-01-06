@@ -2,21 +2,7 @@ import React, { useState } from 'react';
 
 const Footer = ({ onMessageSubmit, onApiResponse }) => {
   const [search, setSearch] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setSelectedFile({ name: file.name, type: file.type, content: event.target.result });
-        console.log("Selected File: ", file);
-      };
-      reader.readAsDataURL(file); // Read the file as a data URL
-    }
-  };
-
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -27,7 +13,7 @@ const Footer = ({ onMessageSubmit, onApiResponse }) => {
     setIsLoading(true);
 
     // Create a message object to include text and file
-    const message = { text: search, file: selectedFile };
+    const message = { text: search};
     onMessageSubmit(message); // Pass the message to the App component
 
     // Fetch data from the API
@@ -89,7 +75,6 @@ const Footer = ({ onMessageSubmit, onApiResponse }) => {
 
     // Reset the input fields
     setSearch("");
-    setSelectedFile(null);
   };
 
   return (
@@ -97,12 +82,6 @@ const Footer = ({ onMessageSubmit, onApiResponse }) => {
       <form onSubmit={submitHandler}>
         <div id='fot'>
           <div className='bar'>
-            <div id='icon'>
-              <label htmlFor="fil">
-                <input id='fil' hidden type='file' onChange={handleFileChange} />
-                <i id='plus' className="fa-solid fa-plus"></i>
-              </label>
-            </div>
             <div id='search'>
               <input
                 className='search'
