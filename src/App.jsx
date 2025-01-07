@@ -2,18 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import loadImage from "./assets/load.png";
+import ReactMarkdown from 'react-markdown';
+import './index.css'; 
 
 const App = () => {
   const [messages, setMessages] = useState([]);
   const [apiResponses, setApiResponses] = useState([]);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
 
   const chatContainerRef = useRef(null);
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop =
-        chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages, apiResponses]);
 
@@ -24,10 +25,10 @@ const App = () => {
   const handleApiResponse = (response) => {
     console.log("API Response Received: ", response);
     setApiResponses((prevResponses) => [...prevResponses, response]);
-    setLoading(false); // Stop loading when response is received
+    setLoading(false);
   };
 
-  console.log("Current API Responses: ", apiResponses); // Debug log
+  console.log("Current API Responses: ", apiResponses);
 
   return (
     <>
@@ -39,7 +40,7 @@ const App = () => {
       >
         {messages.map((msg, index) => (
           <div key={index}>
-            <div className="chat">{msg.text}</div>
+            <div className="chat text-container">{msg.text}</div>
             {loading && !apiResponses[index] && (
               <div className="loading">
                 <img
@@ -50,9 +51,9 @@ const App = () => {
               </div>
             )}
             {apiResponses[index] && (
-              <div className="ai-chat">
+              <div className="ai-chat text-container">
                 <div className="aiImg"></div>
-                <div>{apiResponses[index]}</div>
+                <ReactMarkdown>{apiResponses[index]}</ReactMarkdown>
               </div>
             )}
           </div>
@@ -61,7 +62,7 @@ const App = () => {
       <Footer
         onMessageSubmit={(message) => {
           handleNewMessage(message);
-          setLoading(true); // Start loading when message is submitted
+          setLoading(true);
         }}
         onApiResponse={handleApiResponse}
       />

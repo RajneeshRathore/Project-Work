@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const Footer = ({ onMessageSubmit, onApiResponse }) => {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -11,10 +12,8 @@ const Footer = ({ onMessageSubmit, onApiResponse }) => {
     e.preventDefault();
     console.log("Search Term: ", search);
     setIsLoading(true);
-
-    // Create a message object to include text and file
-    const message = { text: search};
-    onMessageSubmit(message); // Pass the message to the App component
+    
+    onMessageSubmit(search); // Pass the message to the App component
 
     // Fetch data from the API
     try {
@@ -43,13 +42,6 @@ const Footer = ({ onMessageSubmit, onApiResponse }) => {
       const data = await response.json();
       console.log("Fetched Data: ", data); // Debug log to review structure
 
-      // Log each property of the candidates
-      console.log("Candidates Structure: ", JSON.stringify(data.candidates, null, 2));
-      if (data.candidates && data.candidates[0]) {
-        console.log("Candidate[0]: ", JSON.stringify(data.candidates[0], null, 2));
-        console.log("Candidate[0] Parts: ", JSON.stringify(data.candidates[0].content?.parts, null, 2));
-      }
-
       // Extract the output text from the response based on the logged structure
       let outputText = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text;
       console.log("Extracted Output Text: ", outputText);
@@ -59,7 +51,7 @@ const Footer = ({ onMessageSubmit, onApiResponse }) => {
 
       if (isCodeRequest) {
         // Wrap the output text in triple backticks and specify the language to preserve formatting
-        outputText = `\`\`\`c\n${outputText}\n\`\`\``;
+        outputText = `\`\`\`cpp\n${outputText}\n\`\`\``;
       } else {
         // Remove unwanted special characters but keep programming symbols
         outputText = outputText ? outputText.replace(/[^\w\s.,;:{}()\[\]<>/\\!"'`~@$%^&*+=|-]/g, '') : "No output available";
