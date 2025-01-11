@@ -12,9 +12,9 @@ const Footer = ({ onMessageSubmit, onApiResponse }) => {
     e.preventDefault();
     console.log("Search Term: ", search);
     setIsLoading(true);
-    onMessageSubmit(search); // Pass the message to the App component
+    onMessageSubmit(search); // Passing  the message to the App component
 
-    // Fetch data from the API
+    // Fetch data from the api
     try {
       const response = await fetch(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyD4wutXSYZASwfbcTHOwKsBoX-2QqKVVHw",

@@ -10,11 +10,11 @@ const App = () => {
   const [apiResponses, setApiResponses] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const chatContainerRef = useRef(null);
+  const a = useRef(null);
 
   useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    if (a.current) {
+     a.current.scrollTop = a.current.scrollHeight;
     }
   }, [messages, apiResponses]);
 
@@ -35,7 +35,7 @@ const App = () => {
       <Header />
       <div
         className="main"
-        ref={chatContainerRef}
+        ref={a}
         style={{ overflowY: "auto", maxHeight: "80vh" }}
       >
         {messages.map((msg, index) => (
