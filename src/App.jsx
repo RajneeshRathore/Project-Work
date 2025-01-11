@@ -40,7 +40,7 @@ const App = () => {
       >
         {messages.map((msg, index) => (
           <div key={index}>
-            <div className="chat text-container">{msg.text}</div>
+            <div className="chat text-container">{<li>{msg}</li>}</div>
             {loading && !apiResponses[index] && (
               <div className="loading">
                 <img
