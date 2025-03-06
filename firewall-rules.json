@@ -1,0 +1,9 @@
+{
+    "blockedIPs": [],
+    "rateLimits": {
+        "windowMs": 60000,
+        "maxRequests": 100
+    },
+    "whitelistPaths": [],
+    "blacklistPaths": []
+}
